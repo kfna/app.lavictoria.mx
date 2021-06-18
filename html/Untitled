@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<title>Our Funky HTML Page</title>
+<meta name="description" content="Our first page">
+<meta name="keywords" content="html tutorial template">
+</head>
+<body>
+
+
+<form>
+   <input type="file" name="fileToUpload" id="fileToUpload">
+  <select><option>Usuario (Quien Despacha)</option><select>
+  <select><option>Unidades</option><select>
+  <input type="text" id="lectura" name="lectura" placeholder="Lectura (Odometro)" />
+  <input type="text" id="lectura" name="lectura" placeholder="Litros" />
+  <textarea id="observaciones" name="observaciones" placeholder=""></textarea>
+</form>
+
+</body>
+</html>
