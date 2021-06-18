@@ -1,0 +1,66 @@
+body { margin:0; padding:0; font-family: 'Open Sans', sans-serif; background-color: #f2f2f2;}
+body.auth { background-image: linear-gradient(-45deg, #a8866b , #b5977f); min-height: 100vh;}
+* { box-sizing:border-box; outline: 0;}
+a { text-decoration: none; }
+
+/* HEADER */
+header { color:#fff; height:50px; background-color: #ac8e74; color:#fbfbfb; position: fixed; top:0; left:0; right:0;}
+header h1 { text-align: center; font-size:18px; font-weight: 400; line-height: 50px; margin: 0;}
+header a.btn { display: inline-block; position: absolute;  color:#fff; width: 50px; height: 50px; text-align: center; line-height: 60px;}
+header a.btn.back { top:0px; left:0px; }
+header a.btn.nav { top:00px; right:0px; }
+
+/* BODY */
+.app { max-width: 640px; margin: auto; padding-top:50px;}
+.app.npt { padding-top:0px; }
+.app section { padding: 25px; padding-top: 0px;}
+.app section h2 { font-size:14px; font-weight: 400; margin-top:10px; margin-bottom: 10px; color:#67615a; font-weight: bold;}
+.app section h2 svg { display: inline-block; vertical-align: middle;}
+.app section.valign { display: flex; align-items: center; justify-content: center; }
+
+/* FORM UI */
+form.ui { margin-left: -25px; margin-right: -25px; padding:30px; background-color: #fff; box-shadow: 0px 0px 10px rgba(0,0,0,.05); border-radius: 32px;}
+form.ui .upload { border-radius: 100px; width: 120px; height: 120px; display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px;   position: relative; box-shadow:0px 0px 10px rgba(0,0,0,.25)}
+form.ui .upload.on img { opacity:1}
+form.ui .upload img { position: absolute; top:0; left:0; width: 120px; height: 120px; border-radius: 100px; opacity:0;}
+form.ui .upload a.touch { width: 100%; height: 100%; text-align: center; line-height: 130px; display: block; color:#4d434b; }
+form.ui .upload a.btn.remove { position: absolute; display: block; width: 25px; height: 25px; background-color: #eb5d5d; color:#fff; border:#fff solid 2px; box-shadow: 0px 0px 5px rgba(0,0,0,.10); border-radius: 100px; bottom:-12px; left:0; right:0; margin: auto; text-align: center; line-height: 28px; display:none;}
+form.ui .upload.on a.btn.remove { display: block; }
+form.ui .upload a.btn .feather { width: 18px; height: 18px;}
+form.ui .upload input { display: none;}
+form.ui .field { margin-bottom: 20px;}
+form.ui .fields { font-size: 0; margin-top: 15px; margin-bottom: 20px;}
+form.ui .fields .field { display: inline-block; width: 50%; margin-bottom: 0px;}
+form.ui .fields .field:first-child { padding-right: 5px;}
+form.ui .fields .field:last-child { padding-left: 5px;}
+form.ui a.btn.submit {
+	width: 100%; font-size:14px; max-width: 200px; margin: auto; border-radius: 100px; background-color: #a8866b; color:#fbfbfb; display: block; text-align: center; padding-top: 10px; padding-bottom: 10px;
+	background-image: linear-gradient(45deg, #ffba6f , #ffa646); box-shadow: 0px 4px 10px rgb(0,0,0,.2);
+}
+form.ui label {  font-size: 10px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px; display: block; color: #67615a;}
+form.ui input { font-size: 16px; }
+form.ui input { width:100%; border-radius: 12px; -webkit-appearance: none;  border:#c7c7c7 solid 1px; height: 40px; outline: 0; text-indent: 10px; color:#67615a; }
+form.ui textarea { width:100%; border-radius: 12px; -webkit-appearance: none;  border:#c7c7c7 solid 1px; outline: 0; text-indent: 10px; font-size: 16px; color:#67615a;}
+form.ui select {
+	width:100%; border-radius: 12px; -webkit-appearance: none;  border:#c7c7c7 solid 1px; height: 40px; outline: 0; text-indent: 10px; font-size: 16px; background-color: #fff; color:#67615a;
+	background: url('../img/chevron-down.svg') center right no-repeat #fff; 
+}
+
+/* SECTION LOGIN */
+section.login { height:100vh; padding-bottom: 0; padding-top: 0px;}
+section.login form.ui { width: 100%; margin: auto; flex:1;}
+
+/* LOADING */
+.loading { text-align: center; }
+.loading svg { animation: rotation 2s infinite linear; transform-origin: center center; color:#65625a; }
+@keyframes rotation {
+  0% { transform: rotate(0deg); opacity: 1; }
+	25% {  opacity: .75; }
+	50% { opacity: .50; }
+	75% { opacity: .25; }
+  100% { transform: rotate(360deg); opacity: 1; }
+}
+
+/* GLOBAL HELPERS */
+.hidden { display: none; }
+.centered { text-align: center; }

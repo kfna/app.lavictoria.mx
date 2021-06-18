@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<title>La Victoria</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="auth">
+
+<div class="app npt">
+  <section class="login valign">
+    <form class="ui" id="frmAuth" name="frmAuth">
+      <div class="loading hidden"><i data-feather="loader"></i></div>
+      <h2 class="centered"><i data-feather="lock"></i> Iniciar Sesión</h2>
+      <br>
+      <div class="field">
+        <label>Usuario</label>
+        <input type="text" id="usuario" name="usuario" placeholder="" pattern="[0-9]*" />
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" placeholder="" pattern="[0-9]*" />
+      </div>
+      <a href="#" class="btn submit" data-exec="auth">Ingresar</a>
+    </form>
+  </section>
+  <script>feather.replace()</script>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+<script src="js/dao.js"></script>
+<script src="js/data.js"></script>
+<script src="js/user.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
