@@ -1,17 +1,20 @@
 body { margin:0; padding:0; font-family: 'Open Sans', sans-serif; background-color: #f2f2f2;}
 body.auth { background-image: linear-gradient(-45deg, #a8866b , #b5977f); min-height: 100vh;}
+body.color { background-image: linear-gradient(45deg, #a8866b , #b5977f); min-height: 100vh;}
+
 * { box-sizing:border-box; outline: 0;}
 a { text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
 
 /* HEADER */
-header { color:#fff; height:50px; background-color: #ac8e74; color:#fbfbfb; position: fixed; top:0; left:0; right:0;}
-header h1 { text-align: center; font-size:18px; font-weight: 400; line-height: 50px; margin: 0;}
-header a.btn { display: inline-block; position: absolute;  color:#fff; width: 50px; height: 50px; text-align: center; line-height: 60px;}
+header { color:#fff; height:60px; background-color: #ac8e74; color:#fbfbfb; position: fixed; top:0; left:0; right:0;}
+header h1 { text-align: center; font-size:18px; font-weight: 400; line-height: 60px; margin: 0;}
+header a.btn { display: inline-block; position: absolute;  color:#fff; width: 60px; height: 60px; text-align: center; line-height: 70px;}
 header a.btn.back { top:0px; left:0px; }
 header a.btn.nav { top:00px; right:0px; }
 
 /* BODY */
-.app { max-width: 640px; margin: auto; padding-top:50px;}
+.app { max-width: 640px; margin: auto; padding-top:60px;}
 .app.npt { padding-top:0px; }
 .app section { padding: 25px; padding-top: 0px;}
 .app section h2 { font-size:14px; font-weight: 400; margin-top:10px; margin-bottom: 10px; color:#67615a; font-weight: bold;}
@@ -40,10 +43,10 @@ form.ui a.btn.submit {
 form.ui label {  font-size: 10px; font-weight: bold; text-transform: uppercase; margin-bottom: 2px; display: block; color: #67615a;}
 form.ui input { font-size: 16px; }
 form.ui input { width:100%; border-radius: 12px; -webkit-appearance: none;  border:#c7c7c7 solid 1px; height: 40px; outline: 0; text-indent: 10px; color:#67615a; }
-form.ui textarea { width:100%; border-radius: 12px; -webkit-appearance: none;  border:#c7c7c7 solid 1px; outline: 0; text-indent: 10px; font-size: 16px; color:#67615a;}
+form.ui textarea { width:100%; border-radius: 12px; -webkit-appearance: none;  border:#c7c7c7 solid 1px; outline: 0; text-indent: 10px; font-size: 16px; color:#67615a; font-family: 'Open Sans', sans-serif;}
 form.ui select {
 	width:100%; border-radius: 12px; -webkit-appearance: none;  border:#c7c7c7 solid 1px; height: 40px; outline: 0; text-indent: 10px; font-size: 16px; background-color: #fff; color:#67615a;
-	background: url('../img/chevron-down.svg') center right no-repeat #fff; 
+	background: url('../img/chevron-down.svg') center right no-repeat #fff;  background-size: 18px 18px; background-position : calc(100% - 7px) 10px;
 }
 
 /* SECTION LOGIN */
