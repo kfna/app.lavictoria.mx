@@ -20,16 +20,15 @@ Module.UI.prototype = {
 
 					var buffer = '<option id="NULL">Seleccionar</option>';
 				  for(var i=0;i<unidades.length;i++){
-						buffer += '<option id="'+unidades[i].id+'">'+unidades[i].alias+'</option>';
+						buffer += '<option value="'+unidades[i].id+'">'+unidades[i].alias+'</option>';
 					}
 					$(this).html(buffer);
 				break;
 				case "usuarios":
 				  var usuarios = json.usuarios;
-					console.log(usuarios);
 					var buffer = '<option id="NULL">Seleccionar</option>';
 				  for(var i=0;i<usuarios.length;i++){
-						buffer += '<option id="'+usuarios[i].id+'">'+usuarios[i].nombre+'</option>';
+						buffer += '<option value="'+usuarios[i].id+'">'+usuarios[i].nombre+'</option>';
 					}
 					$(this).html(buffer);
 				break;
