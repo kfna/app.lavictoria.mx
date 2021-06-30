@@ -127,6 +127,7 @@ var dataURLToBlob = function(dataURL) {
 }
 
 $(document).ready(function(){
+  
   $(document).on("imageResized", function (event) {
       if (event.blob && event.url) {
           $("#imgcapture").val(event.blob.url);
