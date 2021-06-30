@@ -11,9 +11,11 @@ $(document).ready(function(e){
        case "dev.nuuphealth.com": this.env = { server: 'https://dev.nuuphealth.com:3001' }; break;
        case "app.nuuphealth.com": this.env = { server: 'https://app.nuuphealth.com:3001'  }; break;
      }
+     if(Module.Helper){ this.Helper = new Module.Helper(); }
      if(Module.Data){ this.Data = new Module.Data(); }
-     if(Module.UI){ this.Data = new Module.UI(); }
+     if(Module.UI){ this.UI = new Module.UI(); }
      if(Module.Forms){ this.Forms = new Module.Forms(); }
+     if(Module.Modal){ this.Modal = new Module.Modal(); }
      if(Module.User){ this.User = new Module.User(); }
    }
    objApp = new App();

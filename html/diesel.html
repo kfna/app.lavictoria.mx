@@ -26,16 +26,21 @@
 </header>
 
 <style>
-.app,header { filter: blur(3px); }
-#modal { position: fixed; background-color: rgba(0,0,0,.80); width: 100%; height: 100%; top:0; bottom: 0; left:0; right: 0; z-index: 10; }
-#modal .overflow { display: flex; align-items: center; justify-content: center; flex-wrap:wrap; flex-direction: column; height: 100%;}
-#modal .overflow form  { max-width: 640px; margin: auto; width: 90%;}
+body.off { overflow: hidden;}
+body.off .app { filter: blur(3px); }
+body.off header { filter: blur(3px); }
+#modal { position: fixed; background-color: rgba(0,0,0,.80); width: 100%; height: 100%; top:0; bottom: 0; left:0; right: 0; z-index: 10; display: none; overflow-y: scroll; padding-top: 30px; padding-bottom: 30px;}
+#modal .overflow { display: flex; align-items: center; justify-content: center; flex-wrap:wrap; flex-direction: column; min-height: 100%; }
+#modal .overflow form  { max-width: 640px; margin: auto; width: 90%; position: relative; }
+#modal a.btn.close { position: absolute; top:12px; right: 12px;  color:#e74c3c; }
+#modal a.btn.close svg { width: 35px; height: 35px; }
 </style>
-<div id="modal">
+<div id="modal" class="diesel-registro">
 
 <div class="overflow">
 
-  <form class="ui" id="frmDiesel" name="frmDiesel" data-ctlr="/api/index.php" data-action="saveDiesel">
+  <form class="ui" id="frmDiesel" name="frmDiesel" data-ctrl="/api/index.php" data-action="saveDiesel">
+    <a href="javascript:void(0)" class="btn close modal" data-modal="diesel-registro" data-exec="close"><i data-feather="x-circle"></i></a>
     <div class="upload">
       <a href="#" class="btn touch onClickUpload">
         <i data-feather="camera"></i>
@@ -43,48 +48,46 @@
       </a>
       <a href="#" class="btn remove"><i data-feather="x"></i></a>
       <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" capture="camera" onchange="loadFile(event)">
+      <input type="hidden" id="imgcapture" name="imgcapture" value=""/>
     </div>
 
     <script>
   var loadFile = function(event) {
     var reader = new FileReader();
+
     reader.onload = function(){
       var output = document.getElementById('output');
       output.src = reader.result;
+      $("#imgcapture").val($("#output").attr("src"));
       $(".upload").addClass("on");
     };
     var tmp = reader.readAsDataURL(event.target.files[0]);
-    console.log(tmp);
+    console.log(event.target.files[0]);
   };
   </script>
 
-
     <div class="field">
       <label>Usuario (¿Quién despacho?)</label>
-      <select id="id_surtio" name="id_surtio" data-source="usuarios"><option>Seleccionar</option><select>
+      <select id="id_surtio" name="id_surtio" data-source="usuarios"><option value="NULL" selected>Seleccionar</option><select>
+    </div>
+    <div class="field">
+      <label>Chofer</label>
+      <select id="id_chofer" name="id_chofer" data-source="choferes"><option>Seleccionar</option><select>
     </div>
     <div class="field">
       <label>Unidad</label>
-      <select data-source="unidades"><option>Seleccionar</option><select>
+      <select id="id_unidad" name="id_unidad" data-source="unidades"><option>Seleccionar</option><select>
     </div>
-
     <div class="fields">
       <div class="field"><label>Litros Extraidos</label><input type="text" id="litros" name="litros" placeholder="0" pattern="[0-9]*" /></div>
       <div class="field"><label>Lectura (Odómetro)</label><input type="text" id="lectura" name="lectura" placeholder="0" pattern="[0-9]*" /></div>
-
     </div>
-
     <div class="field">
       <label>Observaciones</label>
       <textarea id="observaciones" name="observaciones" rows="5"></textarea>
     </div>
-
-    <a href="#" class="btn submit onClick" data-exec="save" data-form="frmDiesel">Guardar</a>
-
-
+    <a href="javascript:void(0)" class="btn submit onClick" data-exec="save" data-form="frmDiesel">Guardar</a>
   </form>
-
-
 </div>
 
 </div>
@@ -92,7 +95,7 @@
 <div class="app">
 
 <section class="diesel">
-  <a href="diesel-registro.html" class="btn add"><i data-feather="plus"></i></a>
+  <a href="javascript:void(0)" class="btn add modal" data-modal="diesel-registro" data-exec="open" data-action="register"><i data-feather="plus"></i></a>
   <h2>Registro del día</h2>
   <div class="stats hidden">
     <div class="row">
@@ -119,9 +122,7 @@
   <div class="grid"></div>
 
 </section>
-<script>
-      feather.replace()
-    </script>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
@@ -130,24 +131,58 @@
 <script src="js/dao.js"></script>
 <script src="js/data.js"></script>
 <script src="js/ui.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/helper.js"></script>
 <script src="js/index.js"></script>
 <script>
 var isLoaded = (a) =>{
+  var diesel = {};
   var objDAO = new Module.DAO();
   var endpoint = { url : "/api/index.php", method: "POST" };
   var payload = { exec: "getDiesel" };
   var result = function(r){
-    console.log(r);
-    var diesel = r.json.diesel;
+    diesel = r.json.diesel;
     var buff = '';
     for(var i=0;i<diesel.length;i++){
-      buff += '<div class="item"><div class="image"></div><div class="info"><h3>'+diesel[i].fecha_extraccion+'</h3><h2>'+diesel[i].litros+' Lts</h2><h4>'+diesel[i].alias+'</h4></div></div>';
+      var alias = ((diesel[i].alias==null) ? "No Disponible": diesel[i].alias);
+      buff += '<div class="item"><a href="javascript:void(0)" class="modal" data-exec="open" data-idx="'+i+'" data-action="update"><div class="image"></div><div class="info"><h3>'+objApp.Helper.formatDate(diesel[i].fecha_extraccion)+'</h3><h2>'+diesel[i].litros+' Lts</h2><h4>'+alias+'</h4></div></a></div>';
     }
     $(".grid").html(buff);
-
   }
   objDAO.execute({method: "POST", url: objApp.env.server+endpoint.url},payload,result);
+  feather.replace()
+
+  objApp.Modal.cb = function(params){
+    console.log(params);
+    if(params.action=="register"){
+      $("#frmDiesel")[0].reset();
+    }if(params.action=="update"){
+      $("#frmDiesel #output").attr('src','');
+      $("#frmDiesel .upload").removeClass("on");
+      $("#frmDiesel #litros").val(diesel[params.idx].litros);
+      $("#frmDiesel #lectura").val(diesel[params.idx].odometro);
+      $("#frmDiesel #observaciones").val(diesel[params.idx].observaciones);
+      $("#frmDiesel #id_surtio").val(diesel[params.idx].id_surtio).change();
+      $("#frmDiesel #id_unidad").val(diesel[params.idx].id_unidad).change();
+    }
+  }
+
 }
+</script>
+<script>
+$(document).ready(function(){
+  $("a.onClickUpload").click(function(){
+    $("input[type='file']").click();
+  });
+
+  $("a.btn.remove").click(function(){
+    $('#fileToUpload').val("");
+    $(".upload").removeClass("on");
+    $(".upload img").attr("src","");
+  });
+
+})
 </script>
 </body>
 </html>
