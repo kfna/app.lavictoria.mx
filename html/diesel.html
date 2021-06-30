@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="js/auth.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -34,6 +35,7 @@ body.off header { filter: blur(3px); }
 #modal .overflow form  { max-width: 640px; margin: auto; width: 90%; position: relative; }
 #modal a.btn.close { position: absolute; top:12px; right: 12px;  color:#e74c3c; }
 #modal a.btn.close svg { width: 35px; height: 35px; }
+canvas { width: 1024px; height: 1024px; border: #000 solid 1px;}
 </style>
 <div id="modal" class="diesel-registro">
 
@@ -60,10 +62,81 @@ body.off header { filter: blur(3px); }
       output.src = reader.result;
       $("#imgcapture").val($("#output").attr("src"));
       $(".upload").addClass("on");
+
+      var canvas = document.createElement('canvas'),
+                    max_size = 544,// TODO : pull max size from a site config
+                    width = output.width,
+                    height = output.height;
+                if (width > height) {
+                    if (width > max_size) {
+                        height *= max_size / width;
+                        width = max_size;
+                    }
+                } else {
+                    if (height > max_size) {
+                        width *= max_size / height;
+                        height = max_size;
+                    }
+                }
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext('2d').drawImage(output, 0, 0, width, height);
+                var dataUrl = canvas.toDataURL('image/jpeg');
+                var resizedImage = dataURLToBlob(dataUrl);
+                $.event.trigger({
+                    type: "imageResized",
+                    blob: resizedImage,
+                    url: dataUrl
+                });
+
+
     };
     var tmp = reader.readAsDataURL(event.target.files[0]);
-    console.log(event.target.files[0]);
   };
+
+  function draw(img) {
+  var canvas = document.getElementById('canvas');
+  canvas.width = this.width;
+  canvas.height = this.height;
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0,0);
+}
+
+var dataURLToBlob = function(dataURL) {
+    var BASE64_MARKER = ';base64,';
+    if (dataURL.indexOf(BASE64_MARKER) == -1) {
+        var parts = dataURL.split(',');
+        var contentType = parts[0].split(':')[1];
+        var raw = parts[1];
+
+        return new Blob([raw], {type: contentType});
+    }
+
+    var parts = dataURL.split(BASE64_MARKER);
+    var contentType = parts[0].split(':')[1];
+    var raw = window.atob(parts[1]);
+    var rawLength = raw.length;
+
+    var uInt8Array = new Uint8Array(rawLength);
+
+    for (var i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+    }
+
+    return new Blob([uInt8Array], {type: contentType});
+}
+
+$(document).ready(function(){
+  $(document).on("imageResized", function (event) {
+      if (event.blob && event.url) {
+          $("#imgcapture").val(event.blob.url);
+
+
+      }
+  });
+});
+
+
   </script>
 
     <div class="field">
@@ -86,6 +159,7 @@ body.off header { filter: blur(3px); }
       <label>Observaciones</label>
       <textarea id="observaciones" name="observaciones" rows="5"></textarea>
     </div>
+    <canvas id="canvas"></canvas>
     <a href="javascript:void(0)" class="btn submit onClick" data-exec="save" data-form="frmDiesel">Guardar</a>
   </form>
 </div>
@@ -125,7 +199,6 @@ body.off header { filter: blur(3px); }
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.0/underscore-min.js"></script>
 
 <script src="js/dao.js"></script>
@@ -154,7 +227,6 @@ var isLoaded = (a) =>{
   feather.replace()
 
   objApp.Modal.cb = function(params){
-    console.log(params);
     if(params.action=="register"){
       $("#frmDiesel")[0].reset();
     }if(params.action=="update"){
