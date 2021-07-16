@@ -35,7 +35,7 @@ body.off header { filter: blur(3px); }
 #modal .overflow form  { max-width: 640px; margin: auto; width: 90%; position: relative; }
 #modal a.btn.close { position: absolute; top:12px; right: 12px;  color:#e74c3c; }
 #modal a.btn.close svg { width: 35px; height: 35px; }
-canvas { width: 1024px; height: 1024px; border: #000 solid 1px;}
+canvas { width: 1024px; height: 1024px; border: #000 solid 1px; display: none;}
 </style>
 <div id="modal" class="diesel-registro">
 
@@ -170,7 +170,7 @@ $(document).ready(function(){
 
 <section class="diesel">
   <a href="javascript:void(0)" class="btn add modal" data-modal="diesel-registro" data-exec="open" data-action="register"><i data-feather="plus"></i></a>
-  <h2>Registro del día</h2>
+  <h2>Últimos 10 registros</h2>
   <div class="stats hidden">
     <div class="row">
       <div class="col"><h3><i data-feather="chevron-left"></i> 0 Lts</h3><h4>Hoy</h4></div>

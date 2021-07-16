@@ -8,7 +8,7 @@ $(document).ready(function(e){
      switch(window.location.hostname){
        case "localhost": this.env = { server: 'http://localhost/' }; break;
        case "4c3171091faf.ngrok.io": this.env = { server: 'https://lavictoria.mx' }; break;
-       case "dev.nuuphealth.com": this.env = { server: 'https://dev.nuuphealth.com:3001' }; break;
+       case "app.lavictoria.mx": this.env = { server: 'https://lavictoria.mx' }; break;
        case "app.nuuphealth.com": this.env = { server: 'https://app.nuuphealth.com:3001'  }; break;
      }
      if(Module.Helper){ this.Helper = new Module.Helper(); }
